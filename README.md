@@ -1,54 +1,58 @@
-# Windows 10 Toast Notifications
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)  [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjithurjacob%2FWindows-10-Toast-Notifications.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjithurjacob%2FWindows-10-Toast-Notifications?ref=badge_shield) [![HitCount](http://hits.dwyl.io/jithurjacob/Windows-10-Toast-Notifications.svg)](http://hits.dwyl.io/jithurjacob/Windows-10-Toast-Notifications) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+# win10toast-pimped
 
-An easy-to-use Python library for displaying Windows 10 Toast Notifications which is useful for Windows GUI development.
+>An easy-to-use Python library for displaying Windows 10 Toast Notifications. Improved version of [win10toast](https://pypi.org/project/win10toast/) and [win10toast-persist](https://pypi.org/project/win10toast-persist/) to include `callback_on_click` to run a function on notification click, for example to open a URL.
 
+![](https://cloud.githubusercontent.com/assets/7101452/19763806/75f71ba4-9c5d-11e6-9f16-d0d4bf43e63e.png)
 
-![o7ja4 1](https://cloud.githubusercontent.com/assets/7101452/19763806/75f71ba4-9c5d-11e6-9f16-d0d4bf43e63e.png)
+## Context
 
+1: [Original module](https://github.com/jithurjacob/Windows-10-Toast-Notifications).
+
+2: [Tweaked version with support for notifications that persist in the notification center](https://github.com/tnthieding/Windows-10-Toast-Notifications).
+
+**This fork** is a pimped version of 2 ^ with `callback_on_click` that allows to run a function on notification click, for example to open a URL. 
 
 ## Installation
 
 ```
-pip install win10toast
+1) > pip install win10toast
+2) > pip show win10toast
+2) go to the location where win10toast was installed
+3) replace original `__init__.py` with this version
 ```
 
-## Requirements
+<!-- ## Requirements
 
 ### Installation of pywin32
 ```
 pypiwin32
 setuptools
-```
+``` -->
 
 ## Example
 
-```
-from win10toast import ToastNotifier
-toaster = ToastNotifier()
-toaster.show_toast("Hello World!!!",
-                   "Python is 10 seconds awsm!",
-                   icon_path="custom.ico",
-                   duration=10)
-
-toaster.show_toast("Example two",
-                   "This notification is in it's own thread!",
-                   icon_path=None,
-                   duration=5,
-                   threaded=True)
-# Wait for threaded notification to finish
-while toaster.notification_active(): time.sleep(0.1)
+```python
+toaster = ToastNotifier() # initialize
+toaster.show_toast(
+    "Example two", # title
+    "Click to open URL! >>", # message 
+    icon_path=None, # icon_path 
+    duration=5, # for how many seconds toast should be visible; None = leave notification in Notification Center
+    threaded=True, # True = run other code in parallel; False = code execution will wait till notification disappears 
+    callback_on_click=open_url # click notification to run function 
+    )
 ```
 
-## Contributors [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/jithurjacob/Windows-10-Toast-Notifications/issues)
+## Release History
 
-+ [sidc9](https://github.com/sidc9)
-+ [sakurai-youhei](https://github.com/sakurai-youhei)
-+ [BroderickCarlin](https://github.com/BroderickCarlin)
-+ [florianluediger](https://github.com/florianluediger)
-+ [eric-wieser](https://github.com/eric-wieser)
-+ [Guts](https://github.com/Guts)
+- 0.1: Initial release.
 
+## Versioning
 
-## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjithurjacob%2FWindows-10-Toast-Notifications.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjithurjacob%2FWindows-10-Toast-Notifications?ref=badge_large)
+Using [SemVer](http://semver.org/).
+
+## Acknowledgements
+
+- [win10toast](https://pypi.org/project/win10toast/)
+- [win10toast-persist](https://pypi.org/project/win10toast-persist/)
+- [click Windows 10 notification to open URL](https://stackoverflow.com/questions/63867448/interactive-notification-windows-10-using-python)
