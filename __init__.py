@@ -4,7 +4,7 @@
 
 # 2: Tweaked version (support for notifications that persist in the notification center): https://github.com/tnthieding/Windows-10-Toast-Notifications
 
-# **This fork** is a pimped version of 2 ^ with `callback_on_click` that allows to run a function on notification click, for example to open a URL. 
+# **This fork** is an improved version of 2 ^ with `callback_on_click` that allows to run a function on notification click, for example to open a URL. 
 
 # === installation of the module === 
 

@@ -1,4 +1,4 @@
-# win10toast-pimped
+# win10toast-click
 
 >An easy-to-use Python library for displaying Windows 10 Toast Notifications. Improved version of [win10toast](https://pypi.org/project/win10toast/) and [win10toast-persist](https://pypi.org/project/win10toast-persist/) to include `callback_on_click` to run a function on notification click, for example to open a URL.
 
@@ -10,7 +10,7 @@
 
 2: [Tweaked version with support for notifications that persist in the notification center](https://github.com/tnthieding/Windows-10-Toast-Notifications).
 
-**This fork** is a pimped version of 2 ^ with `callback_on_click` that allows to run a function on notification click, for example to open a URL. 
+**This fork** is an improved version of 2 ^ with `callback_on_click` that allows to run a function on notification click, for example to open a URL. 
 
 ## Installation
 
@@ -45,6 +45,7 @@ toaster.show_toast(
 
 ## Release History
 
+- 0.1.1: Renamed repo.
 - 0.1: Initial release.
 
 ## Versioning
