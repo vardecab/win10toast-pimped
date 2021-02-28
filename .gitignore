@@ -1,2 +1,14 @@
-_old
+# old files
+_old*
+
+# other
 TODO
+
+# automation
+automate
+windows
+
+# build
+build
+dist
+win10toast_click.*
