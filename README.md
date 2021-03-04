@@ -51,6 +51,7 @@ toaster.show_toast(
 
 ## Release History
 
+- 0.1.3: A tiny clean-up. 
 - 0.1.2: Prepared for distribution on Python Package Index (PyPI).
 - 0.1.1: Renamed repo.
 - 0.1: Initial release.
