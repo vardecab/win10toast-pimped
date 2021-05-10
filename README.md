@@ -1,5 +1,7 @@
 # win10toast-click
 
+![](https://img.shields.io/badge/platform-Windows-blue)
+
 >An easy-to-use Python library for displaying Windows 10 Toast Notifications. Improved version of [win10toast](https://pypi.org/project/win10toast/) and [win10toast-persist](https://pypi.org/project/win10toast-persist/) to include `callback_on_click` to run a function on notification click, for example to open a URL.
 
 ![](https://user-images.githubusercontent.com/6877391/109433448-9dc60d80-7a10-11eb-8c57-06760c2d638e.png)
@@ -62,7 +64,8 @@ Using [SemVer](http://semver.org/).
 
 ## License
 
-GNU General Public License v3.
+![](https://img.shields.io/github/license/vardecab/win10toast-click)
+<!-- GNU General Public License v3. -->
 
 ## Acknowledgements
 ### Original modules
@@ -78,3 +81,9 @@ GNU General Public License v3.
 - [pypa packaging-problems](https://github.com/pypa/packaging-problems/issues)
 ### Icon
 - [Flaticon / Freepik](https://www.flaticon.com/)
+
+## Contributing
+
+![](https://img.shields.io/github/issues/vardecab/win10toast-click)
+
+If you found a bug or want to propose a feature, feel free to visit [the Issues page](https://github.com/vardecab/win10toast-click/issues).
