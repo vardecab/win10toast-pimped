@@ -2,6 +2,8 @@
 
 ![](https://img.shields.io/badge/platform-Windows-blue)
 
+![](https://img.shields.io/pypi/status/win10toast-click) ![](https://img.shields.io/pypi/v/win10toast-click)
+
 >An easy-to-use Python library for displaying Windows 10 Toast Notifications. Improved version of [win10toast](https://pypi.org/project/win10toast/) and [win10toast-persist](https://pypi.org/project/win10toast-persist/) to include `callback_on_click` to run a function on notification click, for example to open a URL.
 
 ![](https://user-images.githubusercontent.com/6877391/109433448-9dc60d80-7a10-11eb-8c57-06760c2d638e.png)
