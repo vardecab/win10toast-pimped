@@ -51,6 +51,7 @@ from win32gui import NIF_ICON
 from win32gui import NIF_INFO
 from win32gui import NIF_MESSAGE
 from win32gui import NIF_TIP
+from win32gui import NIIF_NOSOUND
 from win32gui import NIM_ADD
 from win32gui import NIM_DELETE
 from win32gui import NIM_MODIFY
@@ -93,7 +94,7 @@ class ToastNotifier(object):
         return inner
 
     def _show_toast(self, title, msg,
-                    icon_path, duration, callback_on_click):
+                    icon_path, duration, callback_on_click, play_sound):
         """Notification settings.
         :title: notification title
         :msg: notification message
@@ -138,10 +139,17 @@ class ToastNotifier(object):
         flags = NIF_ICON | NIF_MESSAGE | NIF_TIP
         nid = (self.hwnd, 0, flags, WM_USER + 20, hicon, "Tooltip")
         Shell_NotifyIcon(NIM_ADD, nid)
-        Shell_NotifyIcon(NIM_MODIFY, (self.hwnd, 0, NIF_INFO,
-                                      WM_USER + 20,
-                                      hicon, "Balloon Tooltip", msg, 200,
-                                      title))
+        if play_sound:
+            Shell_NotifyIcon(NIM_MODIFY, (self.hwnd, 0, NIF_INFO,
+                                          WM_USER + 20,
+                                          hicon, "Balloon Tooltip", msg, 200,
+                                          title))
+        else:
+            Shell_NotifyIcon(NIM_MODIFY, (self.hwnd, 0, NIF_INFO,
+                                          WM_USER + 20,
+                                          hicon, "Balloon Tooltip", msg, 200,
+                                          title, NIIF_NOSOUND))
+
         PumpMessages()
         # take a rest then destroy
         if duration is not None:
@@ -151,21 +159,22 @@ class ToastNotifier(object):
         return None
 
     def show_toast(self, title="Notification", msg="Here comes the message",
-                    icon_path=None, duration=5, threaded=False, callback_on_click=None):
+                    icon_path=None, duration=5, threaded=False, callback_on_click=None, play_sound=True):
         """Notification settings.
         :title: notification title
         :msg: notification message
         :icon_path: path to the .ico file to custom notification
         :duration: delay in seconds before notification self-destruction, None for no-self-destruction
+        :play_sound: whether to play the sound that regularly accompanies notifications
         """
         if not threaded:
-            self._show_toast(title, msg, icon_path, duration, callback_on_click)
+            self._show_toast(title, msg, icon_path, duration, callback_on_click, play_sound)
         else:
             if self.notification_active():
                 # We have an active notification, let is finish so we don't spam them
                 return False
 
-            self._thread = threading.Thread(target=self._show_toast, args=(title, msg, icon_path, duration, callback_on_click))
+            self._thread = threading.Thread(target=self._show_toast, args=(title, msg, icon_path, duration, callback_on_click, play_sound))
             self._thread.start()
         return True
 
