@@ -1,5 +1,12 @@
 # win10toast-click
 
+![Not Maintained](https://img.shields.io/badge/Maintenance%20Level-Not%20Maintained-yellow.svg)
+
+<br>
+<hr>
+<br>
+<br>
+
 ![](https://img.shields.io/badge/platform-Windows-blue)
 
 ![](https://img.shields.io/pypi/status/win10toast-click) ![](https://img.shields.io/pypi/v/win10toast-click)
