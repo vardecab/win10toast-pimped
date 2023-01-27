@@ -81,19 +81,33 @@ class ToastNotifier(object):
         self._thread = None
 
     @staticmethod
-    def _decorator(func, callback=None):
+    def _decorator(func, callback=None, cb_args=None):
         """
         :param func: callable to decorate
         :param callback: callable to run on mouse click within notification window
+        :param cb_args: list of arguments to pass to the callable
+        :type cb_args: list
         :return: callable
         """
         def inner(*args, **kwargs):
-            kwargs.update({'callback': callback})
+            kwargs.update({'callback': callback, 'cb_args': cb_args})
             func(*args, **kwargs)
         return inner
 
     def _show_toast(self, title, msg,
-                    icon_path, duration, callback_on_click):
+                    icon_path, duration, callback_on_click, cb_args):
+        """
+
+        :param title: The title of the notification
+        :param msg: The body of the notification
+        :param icon_path: The icon to display
+        :param duration: How long to display the notification
+        :type duration: int
+        :param callback_on_click: The method to call when the notification is clicked
+        :param cb_args: A list of arguments to pass to the method when clicked
+        :type cb_args: list
+        :return:
+        """
         """Notification settings.
         :title: notification title
         :msg: notification message
@@ -107,7 +121,7 @@ class ToastNotifier(object):
         self.hinst = self.wc.hInstance = GetModuleHandle(None)
         self.wc.lpszClassName = str("PythonTaskbar" + str(time.time()).replace('.', ''))  # must be a string
         # self.wc.lpfnWndProc = message_map  # could also specify a wndproc.
-        self.wc.lpfnWndProc = self._decorator(self.wnd_proc, callback_on_click)  # could instead specify simple mapping
+        self.wc.lpfnWndProc = self._decorator(self.wnd_proc, callback_on_click, cb_args)  # could instead specify simple mapping
         try:
             self.classAtom = RegisterClass(self.wc)
         except Exception as e:
@@ -151,7 +165,23 @@ class ToastNotifier(object):
         return None
 
     def show_toast(self, title="Notification", msg="Here comes the message",
-                    icon_path=None, duration=5, threaded=False, callback_on_click=None):
+                    icon_path=None, duration=5, threaded=False, callback_on_click=None, cb_args=None):
+        """
+
+        :param title: The title of the notification
+        :type title: str
+        :param msg: The body of the notification
+        :type msg: str
+        :param icon_path: The icon to display
+        :param duration: How long the notification will persist
+        :type duration: int
+        :param threaded: I think this was for sending simultaneous notifications, but it hasn't worked and I don't need it
+        :type threaded: bool
+        :param callback_on_click: The method name to call when the notification is clicked (do not call it)
+        :param cb_args: The arguments to pass to the called method
+        :type cb_args: list
+        :return:
+        """
         """Notification settings.
         :title: notification title
         :msg: notification message
@@ -159,13 +189,13 @@ class ToastNotifier(object):
         :duration: delay in seconds before notification self-destruction, None for no-self-destruction
         """
         if not threaded:
-            self._show_toast(title, msg, icon_path, duration, callback_on_click)
+            self._show_toast(title, msg, icon_path, duration, callback_on_click, cb_args)
         else:
             if self.notification_active():
                 # We have an active notification, let is finish so we don't spam them
                 return False
 
-            self._thread = threading.Thread(target=self._show_toast, args=(title, msg, icon_path, duration, callback_on_click))
+            self._thread = threading.Thread(target=self._show_toast, args=(title, msg, icon_path, duration, callback_on_click, cb_args))
             self._thread.start()
         return True
 
@@ -181,7 +211,10 @@ class ToastNotifier(object):
         if lparam == PARAM_CLICKED:
             # callback goes here
             if kwargs.get('callback'):
-                kwargs.pop('callback')()
+                if kwargs.get('cb_args'):
+                    kwargs.pop('callback')(*kwargs.pop('cb_args'))
+                else:
+                    kwargs.pop('callback')()
             self.on_destroy(hwnd, msg, wparam, lparam)
         elif lparam == PARAM_DESTROY:
             self.on_destroy(hwnd, msg, wparam, lparam)
