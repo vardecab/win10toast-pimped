@@ -2,6 +2,10 @@
 
 ![Not Maintained](https://img.shields.io/badge/Maintenance%20Level-Not%20Maintained-yellow.svg)
 
+<b>As of late 2022, serious rewrite is necessary to fix problems in later Windows 10 builds and Windows 11.</b>
+
+You can check [plyer](https://github.com/kivy/plyer) as an alternative solution.
+
 <br>
 <hr>
 <br>
