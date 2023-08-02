@@ -188,6 +188,7 @@ class ToastNotifier(object):
 
     def on_destroy(self, hwnd, msg, wparam, lparam):
         """Clean after notification ended.
+    
         :hwnd:
         :msg:
         :wparam:
@@ -197,6 +198,6 @@ class ToastNotifier(object):
         Shell_NotifyIcon(NIM_DELETE, nid)
         PostQuitMessage(0)
 
-        return None
+        return 0  # Explicitly return 0 to fix the error
 
         # !FIX: TypeError: 'tuple' object is not callable
